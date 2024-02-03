@@ -3,6 +3,7 @@ public class SpellChecker {
 
 
 	public static void main(String[] args) {
+		args =  new String[]{"coooool","3"};
 		String word = args[0];
 		int threshold = Integer.parseInt(args[1]);
 		String[] dictionary = readDictionary("dictionary.txt");
@@ -11,25 +12,66 @@ public class SpellChecker {
 	}
 
 	public static String tail(String str) {
-		// Your code goes here
+		if(str.length() == 1)
+		{
+			return "";
+		}
+		else
+		{
+			return str.substring(1);
+		}
 	}
 
 	public static int levenshtein(String word1, String word2) {
-		// Your code goes here
+		word1 = word1.toLowerCase();
+		word2 = word2.toLowerCase();
+		if (word1.isEmpty()) {
+			return word2.length();
+		}
+		else if(word2.isEmpty())
+		{
+			return word1.length();
+		}
+		else if(word1.charAt(0) == word2.charAt(0))
+		{
+			return levenshtein(tail(word1), tail(word2));
+		}
+		else
+		{
+
+			return 1 + Math.min(levenshtein(tail(word1), word2),Math.min(levenshtein(tail(word2), word1),levenshtein(tail(word1), tail(word2))) );
+		}
 	}
 
 	public static String[] readDictionary(String fileName) {
 		String[] dictionary = new String[3000];
 
 		In in = new In(fileName);
-
-		// Your code here
-
+		for(int i=0;i<3000;i++)
+		{
+			dictionary[i] = in.readLine();
+		}
 		return dictionary;
 	}
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
-		// Your code goes here
+		word = word.toLowerCase();
+		int leastChanges = threshold+1;
+		int current = 0;
+		String leastString = "";
+		for(int i =0;i<dictionary.length;i++)
+		{
+			current = levenshtein(dictionary[i], word);
+			if (current<=threshold && current<leastChanges) {
+				leastChanges = current;
+				leastString = dictionary[i];
+			}
+		}
+		if (leastString.isEmpty()) {
+			return word;
+		}
+		return leastString;
+		
 	}
 
 }
