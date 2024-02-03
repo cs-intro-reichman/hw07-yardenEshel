@@ -4,13 +4,13 @@ public class HashTagTokenizerTester {
 
     static String FILE_NAME = "dictionary.txt";
     public static void main(String[] args) {
-        //if (args.length != 2) {
-            //System.out.println("Usage: java HashTagTokenizerTester <function_name> <word>");
-          //  return;
-        //}
+        if (args.length != 2) {
+            System.out.println("Usage: java HashTagTokenizerTester <function_name> <word>");
+            return;
+        }
 
-        String functionName = "breakHashTag";
-        String input = "ilovetheuniversity";
+        String functionName = args[0];
+        String input = args[1];
 
         switch (functionName) {
             case "readDictionary":
