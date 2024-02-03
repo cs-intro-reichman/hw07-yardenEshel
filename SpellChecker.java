@@ -3,7 +3,7 @@ public class SpellChecker {
 
 
 	public static void main(String[] args) {
-		args =  new String[]{"ulximaxe","2"};
+		args =  new String[]{"coooool","3"};
 		String word = args[0];
 		int threshold = Integer.parseInt(args[1]);
 		String[] dictionary = readDictionary("dictionary.txt");
@@ -56,17 +56,13 @@ public class SpellChecker {
 
 	public static String spellChecker(String word, int threshold, String[] dictionary) {
 		word = word.toLowerCase();
-		int leastChanges = threshold;
+		int leastChanges = threshold+1;
 		int current = 0;
 		String leastString = "";
 		for(int i =0;i<dictionary.length;i++)
 		{
-			if(dictionary[i].equals("ultimate"))
-			{
-				int k = 0;
-			}
 			current = levenshtein(dictionary[i], word);
-			if (current<=leastChanges) {
+			if (current<=threshold && current<leastChanges) {
 				leastChanges = current;
 				leastString = dictionary[i];
 			}
