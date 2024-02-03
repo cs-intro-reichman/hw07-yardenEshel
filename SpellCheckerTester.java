@@ -4,8 +4,8 @@ public class SpellCheckerTester {
     public static void main(String[] args) {
 
 
-        String word = "hello";
-        int threshold = 1;
+        String word = args[0];
+        int threshold = Integer.parseInt(args[1]);
 
         String[] dictionary = SpellChecker.readDictionary(FILE_NAME);
         String closest = SpellChecker.spellChecker(word, threshold, dictionary);
